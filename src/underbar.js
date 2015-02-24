@@ -52,10 +52,9 @@
   // Note: _.each does not have a return value, but rather simply runs the
   // iterator function over each item in the input collection.
   _.each = function(collection, iterator) {
-    var res = [];
     if(Array.isArray(collection)){
       for(var i=0; i<collection.length; i++){
-       iterator(collection[i],i, collection);       
+        iterator(collection[i],i, collection);       
       }
     }
     else if(typeof(collection) === "object"){
@@ -84,46 +83,20 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
-    var truth = [];
-    if(Array.isArray(collection)){
-      for(var i=0; i<collection.length; i++){
-        if(test(collection[i])){
-          truth.push(collection[i]);
-        }
+   var tru = [];
+   _.each(collection, function(item, index){
+      if(test(item)){
+        tru.push(collection[index]);
       }
-      return truth;
-    }
-    else if(typeof(collection) === "object"){
-      for (var key in collection){
-        if(test(collection[key])){
-          truth.push(collection[key]);
-        }
-      }
-      return truth;
-    }
+   });
 
+   return tru;
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
      var fal = [];
-    if(Array.isArray(collection)){
-      for(var i=0; i<collection.length; i++){
-        if(!test(collection[i])){
-          fal.push(collection[i]);
-        }
-      }
-      return fal;
-    }
-    else if(typeof(collection) === "object"){
-      for (var key in collection){
-        if(!test(collection[key])){
-          fal.push(collection[key]);
-        }
-      }
-      return fal;
-    }
-};
+  };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
@@ -149,19 +122,9 @@
   // Return the results of applying an iterator to each element.
   _.map = function(collection, iterator) {
     var adj = [];
-    if(Array.isArray(collection)){
-      for(var i=0; i<collection.length; i++){
-        adj[i] = iterator(collection[i]);
-      }
+    adj.push(_.each(collection, iterator));
     return adj;
-    }
-    else if(typeof(collection) === "object"){
-      for (var key in collection){
-        adj.push(iterator(collection[key]));
-      }
-      return adj;
-    }
-  };
+ };
 
   /*
    * TIP: map is really handy when you want to transform an array of
@@ -202,6 +165,9 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    var adj;
+
+    
   };
 
   // Determine if the array or object contains a given value (using `===`).
