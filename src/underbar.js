@@ -84,8 +84,8 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+    var truth = [];
     if(Array.isArray(collection)){
-      var truth = [];
       for(var i=0; i<collection.length; i++){
         if(test(collection[i])){
           truth.push(collection[i]);
@@ -93,12 +93,21 @@
       }
       return truth;
     }
+    else if(typeof(collection) === "object"){
+      for (var key in collection){
+        if(test(collection[key])){
+          truth.push(collection[key]);
+        }
+      }
+      return truth;
+    }
+
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
+     var fal = [];
     if(Array.isArray(collection)){
-      var fal = [];
       for(var i=0; i<collection.length; i++){
         if(!test(collection[i])){
           fal.push(collection[i]);
@@ -106,7 +115,15 @@
       }
       return fal;
     }
-  };
+    else if(typeof(collection) === "object"){
+      for (var key in collection){
+        if(!test(collection[key])){
+          fal.push(collection[key]);
+        }
+      }
+      return fal;
+    }
+};
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
