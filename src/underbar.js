@@ -95,24 +95,28 @@
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
-    
+
 
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
-    
-
+    var unique = [];
+    _.each(array, function(item,index){
+      if(_.indexOf(array, item) == index){
+        unique.push(item);
+      }
+    });
+    return unique;
  };
   // Return the results of applying an iterator to each element.
   _.map = function(collection, iterator) {
     var adj = [];
+    
     _.each(collection, function(item){
       adj.push(iterator(item));
     });
-
     return adj;
-
  };
 
   /*
