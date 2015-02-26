@@ -45,12 +45,11 @@
         return array.slice(n-1);
       }    
   };
-
   // Call iterator(value, key, collection) for each element of collection.
   // Accepts both arrays and objects.
   //
   // Note: _.each does not have a return value, but rather simply runs the
-  // iterator function over each item in the input collection.
+  // iterator function over each ite the input collection.
   _.each = function(collection, iterator) {
     if(Array.isArray(collection)){
       for(var i=0; i<collection.length; i++){
@@ -158,11 +157,22 @@
   //     return total + number * number;
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
-  _.reduce = function(collection, iterator, accumulator) {
-    var adj;
-
+_.reduce = function(collection, iterator, accumulator) {
+    var accumulatorExists = true;
+    if (arguments.length < 3) {
+        accumulator = collection[0];
+        accumulatorExists = false;
+    } 
     
-  };
+    _.each(collection, function(item,index) {
+    if (!(index === 0 && !accumulatorExists)) {
+          accumulator = iterator(accumulator, item);
+        }
+    });
+  
+    return accumulator;
+};
+
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
