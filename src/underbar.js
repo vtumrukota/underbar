@@ -189,7 +189,19 @@ _.reduce = function(collection, iterator, accumulator) {
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    // TIP: Try re-using reduce() here.
+    var callbackexists = arguments.length > 1 ? true :  false;
+
+      return _.reduce(collection, function(pass, item){
+
+       if(callbackexists){
+        if(!iterator(item)){return false;}
+       }
+       else if(!callbackexists){
+        if(!item){return false;}
+       }
+       
+       return pass === true;
+      }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
