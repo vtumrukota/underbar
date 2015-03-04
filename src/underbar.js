@@ -191,24 +191,52 @@ _.reduce = function(collection, iterator, accumulator) {
   _.every = function(collection, iterator) {
     var callbackexists = arguments.length > 1 ? true :  false;
 
-      return _.reduce(collection, function(pass, item){
-
+      return _.reduce(collection, function(test, item){
        if(callbackexists){
-        if(!iterator(item)){return false;}
+        if(!iterator(item))
+          {return false;}
        }
        else if(!callbackexists){
-        if(!item){return false;}
+        if(!item)
+          {return false;}
        }
-       
-       return pass === true;
+      return test === true;
       }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
-    // TIP: There's a very clever way to re-use every() here.
+    var passed = false; 
+
+    if(collection.length === 0)
+      {return false;}
+
+    if(_.every(collection, iterator))
+      {return true;}
+
+    //var cbExists = arguments.length > 1 ? true : false;
+
+    if(arguments.length < 2){
+      _.every(collection, function(test, item){
+        if(_.identity(collection)) {passed =true;}
+      });
+    }
+
+     _.every(collection, function(test, item){
+      if(iterator(test)) {passed = true;}
+     });
+    
+    
+   return passed;
+    
   };
+    
+
+
+  
+      
+
 
 
   /**
@@ -230,6 +258,13 @@ _.reduce = function(collection, iterator, accumulator) {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    
+    for(var i=0; i<arguments.length; i++){
+      _.each(arguments[i], function(val,key){
+        obj[key] = val;
+      });
+    }
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
@@ -301,6 +336,7 @@ _.reduce = function(collection, iterator, accumulator) {
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+
   };
 
 
