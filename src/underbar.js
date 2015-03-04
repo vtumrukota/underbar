@@ -212,17 +212,9 @@ _.reduce = function(collection, iterator, accumulator) {
     if(collection.length === 0)
       {return false;}
 
-    if(_.every(collection, iterator))
-      {return true;}
-
-    //var cbExists = arguments.length > 1 ? true : false;
-
     if(arguments.length < 2){
-      _.every(collection, function(test, item){
-        if(_.identity(collection)) {passed =true;}
-      });
-    }
-
+      iterator = _.identity; 
+    }  
      _.every(collection, function(test, item){
       if(iterator(test)) {passed = true;}
      });
