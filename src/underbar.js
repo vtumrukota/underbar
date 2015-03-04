@@ -209,19 +209,16 @@ _.reduce = function(collection, iterator, accumulator) {
   _.some = function(collection, iterator) {
     var passed = false; 
 
-    if(collection.length === 0)
-      {return false;}
-
+    if(collection.length === 0){
+      return false;
+      }
     if(arguments.length < 2){
       iterator = _.identity; 
     }  
-     _.every(collection, function(test, item){
+     _.every(collection, function(test){
       if(iterator(test)) {passed = true;}
      });
-    
-    
    return passed;
-    
   };
     
 
@@ -312,6 +309,10 @@ _.reduce = function(collection, iterator, accumulator) {
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    _.each(arguments)
+
+
+
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -321,8 +322,12 @@ _.reduce = function(collection, iterator, accumulator) {
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    var args = Array.prototype.slice.call(arguments);
+    var x = args.slice(2)
+      return setTimeout(function(){
+        return func.apply(null, x);
+      }, wait);
   };
-
 
   /**
    * ADVANCED COLLECTION OPERATIONS
