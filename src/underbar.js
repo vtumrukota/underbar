@@ -309,9 +309,18 @@ _.reduce = function(collection, iterator, accumulator) {
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    _.each(arguments)
+    var cache ={};
 
+    return function(){
+      var args = Array.prototype.slice.call(arguments);
 
+        if(args in cache){
+          return cache[args];
+        }
+        else{
+          return cache[args] = func.apply(this,arguments);
+        }
+    }
 
   };
 
@@ -324,6 +333,7 @@ _.reduce = function(collection, iterator, accumulator) {
   _.delay = function(func, wait) {
     var args = Array.prototype.slice.call(arguments);
     var x = args.slice(2)
+
       return setTimeout(function(){
         return func.apply(null, x);
       }, wait);
@@ -342,9 +352,9 @@ _.reduce = function(collection, iterator, accumulator) {
   _.shuffle = function(array) {
     var copy = array.concat();
 
-    for(var shuffled=[]; 0<copy.length; ){
-        var index = Math.floor(Math.random()*copy.length);
-        var element = copy.splice(index,1);
+    for(var shuffled=[], index, element; 0<copy.length; ){
+        index = Math.floor(Math.random()*copy.length);
+        element = copy.splice(index,1);
         shuffled.push(element.pop()); 
     }
     return shuffled;
